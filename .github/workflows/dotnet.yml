@@ -23,6 +23,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore ../../src/shopStore.csproj
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build ../../src/shopStore.csproj --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test ../../src/shopStore.csproj --no-build --verbosity normal
