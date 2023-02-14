@@ -18,6 +18,12 @@ public class DataContext : DbContext
         options.UseNpgsql(Configuration.GetConnectionString("WebApiDatabase"));
     }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+
+    }
+
     public DbSet<Product> Products { get; set; }
     public DbSet<Customer> Customers { get; set; }
+    public DbSet<CustomerRequest> CustomerRequests { get; set; }
 }

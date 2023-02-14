@@ -10,6 +10,5 @@ public class Customer {
     public string Email { get; set; }
     public string Address { get; set; }
     public DateTime RegistrationDate { get; set; }
-    public IList<Product> Productes { get; set; }
 
 }
