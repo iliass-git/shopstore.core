@@ -20,9 +20,13 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
+    - name: check path
+      run:  pwd
+    - name: check content
+      run:  ls -la
     - name: Restore dependencies
-      run: dotnet restore ../../src/shopStore.csproj
+      run: dotnet restore ./src/shopStore.csproj
     - name: Build
-      run: dotnet build ../../src/shopStore.csproj --no-restore
+      run: dotnet build ./src/shopStore.csproj --no-restore
     - name: Test
-      run: dotnet test ../../src/shopStore.csproj --no-build --verbosity normal
+      run: dotnet test ./src/shopStore.csproj --no-build --verbosity normal
