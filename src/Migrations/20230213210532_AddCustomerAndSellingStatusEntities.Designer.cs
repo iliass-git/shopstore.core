@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using shopStore.DbContext;
+using ShopStore.DbContext;
 
 #nullable disable
 
-namespace shopStore.Migrations
+namespace ShopStore.Migrations
 {
     [DbContext(typeof(DataContext))]
     [Migration("20230213210532_AddCustomerAndSellingStatusEntities")]

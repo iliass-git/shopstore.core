@@ -1,4 +1,4 @@
-namespace shopStore.Models;
+namespace ShopStore.Models;
 
 public class Product {
 

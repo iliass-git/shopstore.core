@@ -1,7 +1,7 @@
-namespace shopStore.DbContext;
+namespace ShopStore.DbContext;
 
 using Microsoft.EntityFrameworkCore;
-using shopStore.Models;
+using ShopStore.Models;
 
 public class DataContext : DbContext
 {
