@@ -6,15 +6,26 @@ namespace ShopStore.Repository;
 public class ProductRepository: IProductRepository{
 
     private readonly DataContext _dataContext;
-    public ProductRepository(DataContext dataContext)
+     private readonly ILogger<ProductRepository> _logger;
+    public ProductRepository(DataContext dataContext, ILogger<ProductRepository> logger)
     {
         _dataContext = dataContext;
+        _logger = logger;
     }
 
     public void AddProduct(Product product)
     {
-       _dataContext.Products.Add(product);
-       _dataContext.SaveChanges();
+        try 
+        {
+            _dataContext.Products.Add(product);
+            _dataContext.SaveChanges();
+            _logger.LogInformation($"The product with name {product.Name} has been saved successfuly.");
+        } 
+        catch (Exception ex)
+        {
+            _logger.LogError($"Something went wong. Exception message: {ex}");
+        }
+
     }
 
     public void DeleteProduct(int productId)

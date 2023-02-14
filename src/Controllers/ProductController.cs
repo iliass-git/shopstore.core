@@ -18,8 +18,9 @@ public class ProductController : ControllerBase
 
 
     [HttpPost ,Route("/AddProduct")]
-    public void AddProduct(Product product)
+    public IActionResult AddProduct(Product product)
     {
         _productRepository.AddProduct(product);
+        return Ok();   
     }
 }
