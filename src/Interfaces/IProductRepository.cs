@@ -7,6 +7,6 @@ public interface IProductRepository {
     public Product GetProductById (int ProductId);
     public IList<Product> GetAllProductes();
     public void UpdateProduct(Product product);
-    public void DeleteProduct(int productId);
+    public void DeleteProduct(Product product);
 
 }

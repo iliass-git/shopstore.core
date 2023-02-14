@@ -28,23 +28,58 @@ public class ProductRepository: IProductRepository{
 
     }
 
-    public void DeleteProduct(int productId)
+    public void DeleteProduct(Product product)
     {
-        throw new NotImplementedException();
+        try
+        {
+            _dataContext.Products.Remove(product);
+            _dataContext.SaveChanges();
+        }
+        catch(Exception ex)
+        {
+             _logger.LogError($"Something went wong. Exception message: {ex}");
+        }
+
     }
 
     public IList<Product> GetAllProductes()
     {
-        throw new NotImplementedException();
+        try
+        {
+            var productes = _dataContext.Products.ToList();
+            return productes;
+        }
+        catch(Exception ex)
+        {
+             _logger.LogError($"Something went wong. Exception message: {ex}");
+        }
+
+        return null;
     }
 
-    public Product GetProductById(int ProductId)
+    public Product GetProductById(int productId)
     {
-        throw new NotImplementedException();
+       try
+       {
+            var product = _dataContext.Products.Where(p => p.Id == productId).SingleOrDefault();
+            return product;
+       }
+       catch(Exception ex)
+       {
+            _logger.LogError($"Something went wong. Exception message: {ex}");
+       }
+       return null;
     }
 
     public void UpdateProduct(Product product)
     {
-        throw new NotImplementedException();
+       try{
+             _dataContext.Products.Update(product);
+             _dataContext.SaveChanges();
+       }
+       catch(Exception ex)
+       {
+            _logger.LogError($"Something went wong. Exception message: {ex}");
+       }
     }
 }
