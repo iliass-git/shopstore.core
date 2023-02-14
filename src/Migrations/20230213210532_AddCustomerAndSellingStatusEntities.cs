@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace shopStore.Migrations
+namespace ShopStore.Migrations
 {
     /// <inheritdoc />
     public partial class AddCustomerAndSellingStatusEntities : Migration

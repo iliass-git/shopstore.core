@@ -1,4 +1,4 @@
-namespace shopStore.Models;
+namespace ShopStore.Models;
 
 public enum SellingStatus {
     Available,
