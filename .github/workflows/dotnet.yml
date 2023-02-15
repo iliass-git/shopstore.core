@@ -49,6 +49,6 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build the Docker image
         run: |
-          docker build ../../ --tag ghcr.io/iliass-de/shopstore:latest
+          docker build . --tag ghcr.io/iliass-de/shopstore:latest
           docker run ghcr.io/iliass-de/shopstore:latest
           docker push ghcr.io/iliass-de/shopstore:latest
