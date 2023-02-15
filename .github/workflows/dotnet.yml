@@ -50,5 +50,5 @@ jobs:
       - name: Build the Docker image
         run: |
           docker build . --tag ghcr.io/iliass-de/shopstore:latest
-          docker run ghcr.io/iliass-de/shopstore:latest
+          docker run -d -p 8080:80 ghcr.io/iliass-de/shopstore:latest
           docker push ghcr.io/iliass-de/shopstore:latest
