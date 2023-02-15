@@ -24,5 +24,15 @@ jobs:
       run: dotnet restore ./src/shopStore.csproj
     - name: Build
       run: dotnet build ./src/shopStore.csproj --no-restore
+
+  Test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
     - name: Test
-      run: dotnet test ./src/shopStore.csproj --no-build --verbosity normal
+      run: dotnet test ./test/shopStoreUnitTest/shopStoreUnitTest.csproj --no-build --verbosity normal
