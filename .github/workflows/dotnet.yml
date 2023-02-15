@@ -35,4 +35,4 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Test
-      run: dotnet test ./test/shopStoreUnitTest/shopStoreUnitTest.csproj --no-build --verbosity normal
+      run: dotnet test ./test/shopStoreUnitTest/shopStoreUnitTest.csproj
