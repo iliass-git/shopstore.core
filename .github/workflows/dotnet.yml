@@ -39,7 +39,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
           name: Depcheck report
-          path: src
+          path: reports
           if-no-files-found: error
 
   Test:
