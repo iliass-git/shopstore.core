@@ -39,7 +39,8 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
           name: Depcheck report
-          path: reports
+          path: src
+          if-no-files-found: error
 
   Test:
     runs-on: ubuntu-latest
