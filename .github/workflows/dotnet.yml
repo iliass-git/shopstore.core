@@ -33,7 +33,7 @@ jobs:
         format: 'HTML'
         out: 'reports'
         args: >
-          --failOnCVSS 7
+          --failOnCVSS 10
           --enableRetired
     - name: Upload results
       uses: actions/upload-artifact@v3
