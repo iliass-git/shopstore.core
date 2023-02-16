@@ -35,7 +35,6 @@ jobs:
         args: >
           --failOnCVSS 7
           --enableRetired
-      run: mkdir reports
     - name: Upload results
       uses: actions/upload-artifact@v3
       with:
