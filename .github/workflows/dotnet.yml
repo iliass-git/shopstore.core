@@ -24,10 +24,26 @@ jobs:
       run: dotnet restore ./src/shopStore.csproj
     - name: Build
       run: dotnet build ./src/shopStore.csproj --no-restore
+    - name: Depcheck
+      uses: dependency-check/Dependency-Check_Action@main
+      id: Depcheck
+      run: mkdir reports
+      with:
+        project: 'shopstore'
+        path: '.'
+        format: 'HTML'
+        out: 'reports'
+        args: >
+          --failOnCVSS 7
+          --enableRetired
+    - name: Upload results
+      uses: actions/upload-artifact@v3
+      with:
+          name: Depcheck report
+          path: reports
 
   Test:
     runs-on: ubuntu-latest
-    
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET
@@ -39,6 +55,7 @@ jobs:
 
   publish:
     runs-on: ubuntu-latest
+    needs: [build, Test]
     steps:
       - uses: actions/checkout@v3
       - name: Login to GitHub Container Registry
