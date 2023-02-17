@@ -53,7 +53,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.expect(pm.response.code).to.be.oneOf([200,204]);"
+							"pm.expect(pm.response.code).to.be.oneOf([200,201]);"
 						],
 						"type": "text/javascript"
 					}
@@ -93,7 +93,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.expect(pm.response.code).to.be.oneOf([200]);"
+							"pm.expect(pm.response.code).to.be.oneOf([200,201]);"
 						],
 						"type": "text/javascript"
 					}
