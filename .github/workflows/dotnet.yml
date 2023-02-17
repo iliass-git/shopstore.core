@@ -70,7 +70,7 @@ jobs:
       - name: Prepare newman
         run: npm install -g newman
       - name: Run test with newman
-        run: newman run ./test/api_test/api_tests.postman_collection.json --delay-request 2000
+        run: newman run ./test/api_test/api_tests.postman_collection.json 
 
   publish:
     runs-on: ubuntu-latest
