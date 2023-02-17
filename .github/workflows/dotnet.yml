@@ -42,7 +42,7 @@ jobs:
           path: reports
           if-no-files-found: error
 
-  Test:
+  test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -53,9 +53,25 @@ jobs:
     - name: Test
       run: dotnet test ./test/shopStoreUnitTest/shopStoreUnitTest.csproj
 
+  api-test:
+    runs-on: ubuntu-latest
+    needs: [build, test]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Pull Postgres
+        run: docker run -itd -e POSTGRES_USER=server_admin -e POSTGRES_PASSWORD=P@ssw0rd -p 5432:5432  --name postgresql postgres
+      - name: Build the Docker image
+        run: |
+          docker build . --tag ghcr.io/iliass-de/shopstore:latest
+          docker run -d -p 8080:80 ghcr.io/iliass-de/shopstore:latest
+      - name: Prepare newman
+        uses: matt-ball/newman-action@master
+      - name: Run test with newman
+        run: newman run ./test/api_test/api_tests.postman_collection.json
+
   publish:
     runs-on: ubuntu-latest
-    needs: [build, Test]
+    needs: [build, test, api-test]
     steps:
       - uses: actions/checkout@v3
       - name: Login to GitHub Container Registry
