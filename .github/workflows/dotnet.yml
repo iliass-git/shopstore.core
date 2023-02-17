@@ -58,6 +58,9 @@ jobs:
     needs: [build, test]
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
       - name: Pull Postgres
         run: docker run -itd -e POSTGRES_USER=server_admin -e POSTGRES_PASSWORD=P@ssw0rd -p 5432:5432  --name postgresql postgres
       - name: Build the Docker image
@@ -65,10 +68,7 @@ jobs:
           docker build . --tag ghcr.io/iliass-de/shopstore:latest
           docker run -d -p 8080:80 ghcr.io/iliass-de/shopstore:latest
       - name: Prepare newman
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - run: npm install -g newman
+        run: npm install -g newman
       - name: Run test with newman
         run: newman run ./test/api_test/api_tests.postman_collection.json
 
