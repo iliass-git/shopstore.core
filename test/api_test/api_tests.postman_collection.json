@@ -116,6 +116,37 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "http://localhost:8080/Product/1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.expect(pm.response.code).to.be.oneOf([200,201]);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Product/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Product",
+						"1"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
