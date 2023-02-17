@@ -62,7 +62,11 @@ jobs:
         with:
           node-version: 16
       - name: Pull Postgres
-        run: docker run -itd -e POSTGRES_USER=server_admin -e POSTGRES_PASSWORD=P@ssw0rd -p 5432:5432  --name postgresql postgres
+        run: |
+          docker run -itd -e POSTGRES_USER=server_admin -e POSTGRES_PASSWORD=P@ssw0rd -p 5432:5432  --name postgresql postgres
+          docker exec -it postgresql psql -U server_admin -c 'CREATE DATABASE shope-store;'
+          sudo apt-get install -y postgresql-client
+          psql -U server_admin -d shope-store -a -f ./shopestore-schema.sql
       - name: Build the Docker image
         run: |
           docker build . --tag ghcr.io/iliass-de/shopstore:latest
