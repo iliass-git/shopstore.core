@@ -1,0 +1,152 @@
+{
+	"info": {
+		"_postman_id": "78d9955c-008d-45ca-a797-b5e0f4bb95e9",
+		"name": "api_tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"status code is 200\", function(){",
+							"pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 0,\n  \"name\": \"dummyProduct\",\n  \"description\": \"lorem ipsum\",\n  \"price\": 10,\n  \"availableQuantity\": 100\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/product",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.expect(pm.response.code).to.be.oneOf([200,201]);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJub25jZSI6Ik9hTFp5SUx3S3pGSW1ldjlmeTB4dVpmcDB2ZmE5QVFJNXBGLXllYWN2cmsiLCJhbGciOiJSUzI1NiIsIng1dCI6Ik1yNS1BVWliZkJpaTdOZDFqQmViYXhib1hXMCIsImtpZCI6Ik1yNS1BVWliZkJpaTdOZDFqQmViYXhib1hXMCJ9.eyJhdWQiOiJodHRwczovL2dyYXBoLm1pY3Jvc29mdC5jb20iLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC80YzEwNTNlZi1jYTk1LTQ3OTItYjk4Zi1hMzliMzU5NGU3MTUvIiwiaWF0IjoxNjQzODg2MzgwLCJuYmYiOjE2NDM4ODYzODAsImV4cCI6MTY0Mzg5MDI4MCwiYWlvIjoiRTJaZ1lIZ2NQcHMvNGZpbFN3S3lDVnMrVDdnZkN3QT0iLCJhcHBfZGlzcGxheW5hbWUiOiJCbGF6b3JBcHAiLCJhcHBpZCI6ImE2NzliNTg4LWU5ODItNDcyNy04MzNiLTc5ZTA5Yzc1OTBjYSIsImFwcGlkYWNyIjoiMSIsImlkcCI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0LzRjMTA1M2VmLWNhOTUtNDc5Mi1iOThmLWEzOWIzNTk0ZTcxNS8iLCJpZHR5cCI6ImFwcCIsIm9pZCI6IjgyODFmNTI4LWI1YmQtNDFiYy04YjVkLWEyM2ViMGE0NzAzYSIsInJoIjoiMC5BWG9BNzFNUVRKWEtra2U1ajZPYk5aVG5GUU1BQUFBQUFBQUF3QUFBQUFBQUFBQjZBQUEuIiwicm9sZXMiOlsiR3JvdXAuUmVhZC5BbGwiLCJEaXJlY3RvcnkuUmVhZC5BbGwiXSwic3ViIjoiODI4MWY1MjgtYjViZC00MWJjLThiNWQtYTIzZWIwYTQ3MDNhIiwidGVuYW50X3JlZ2lvbl9zY29wZSI6IkVVIiwidGlkIjoiNGMxMDUzZWYtY2E5NS00NzkyLWI5OGYtYTM5YjM1OTRlNzE1IiwidXRpIjoiY1phUUhIMGZfay1LZWdJTWQ1OUpBQSIsInZlciI6IjEuMCIsIndpZHMiOlsiMDk5N2ExZDAtMGQxZC00YWNiLWI0MDgtZDVjYTczMTIxZTkwIl0sInhtc190Y2R0IjoxNjA3MjczMTIyfQ.darF4x-Z5bPfFtgdAWa2WehgE6BLpVjS9TJz0aF-MhzIKHVN7O9SuKCzReXSh6eWFepbVqh7uwh40pLhVzEvaf9irpYZvHHxPujE1HkpmP_W43VioVmzzLjf9QqjtTP3IEI9NtAcUaQwiIbb30yB06OszYMJ0yzwOH9Q5ulpFBxwCe76nb_aQNG0kgPl2p4hM1h_pRc0eMB_kFN0UREQqFK4MDXOiqbrYWp25hSXiZEiZ7Wfda7gHakUmHaEe0SbRtyhgcXToyLjQA7m5YBDzVh2VUsvuLCg6fmaIGxGuwADEAaP-Nt9VECmDqszaRcTAMagTl1H9_DYMcSA5ZFTyw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/Product/1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.expect(pm.response.code).to.be.oneOf([200,201]);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Product/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Product",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/Product/1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.expect(pm.response.code).to.be.oneOf([200,201]);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Product/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Product",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

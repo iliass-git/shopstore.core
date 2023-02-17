@@ -24,7 +24,7 @@ public class ProductController : ControllerBase
         return Ok();   
     }
 
-    [HttpGet ,Route("/Productes")]
+    [HttpGet ,Route("/Products")]
     public IActionResult GetProductes()
     {
         var productes = _productRepository.GetAllProductes();
