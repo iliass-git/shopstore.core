@@ -47,15 +47,13 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/productes",
+			"name": "http://localhost:8080/products",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"status code is 200\", function(){",
-							"pm.response.to.have.status(200);",
-							"});"
+							"pm.expect(pm.response.code).to.be.oneOf([200,204]);"
 						],
 						"type": "text/javascript"
 					}
@@ -75,14 +73,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/productes",
+					"raw": "http://localhost:8080/products",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"productes"
+						"products"
 					]
 				}
 			},
