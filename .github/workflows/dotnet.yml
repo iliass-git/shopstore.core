@@ -76,7 +76,13 @@ jobs:
       - name: Prepare newman
         run: npm install -g newman
       - name: Run test with newman
-        run: newman run ./test/api_test/api_tests.postman_collection.json 
+        run: newman run ./test/api_test/api_tests.postman_collection.json > apiTest_report
+      - name: Upload results
+        uses: actions/upload-artifact@v3
+        with:
+          name: Api test report
+          path: apiTest_report
+          if-no-files-found: error
 
   publish:
     runs-on: ubuntu-latest
