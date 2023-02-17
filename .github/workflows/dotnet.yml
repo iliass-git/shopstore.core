@@ -65,7 +65,10 @@ jobs:
           docker build . --tag ghcr.io/iliass-de/shopstore:latest
           docker run -d -p 8080:80 ghcr.io/iliass-de/shopstore:latest
       - name: Prepare newman
-        uses: matt-ball/newman-action@master
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm install -g newman
       - name: Run test with newman
         run: newman run ./test/api_test/api_tests.postman_collection.json
 
