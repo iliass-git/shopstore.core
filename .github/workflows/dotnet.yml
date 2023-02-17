@@ -65,6 +65,8 @@ jobs:
         run: |
           docker run -itd -e POSTGRES_USER=server_admin -e POSTGRES_PASSWORD=P@ssw0rd -p 5432:5432  --name postgresql postgres
           sudo apt-get install -y postgresql-client
+          sudo apt install net-tools
+          ifconfig
           export PGPASSWORD='P@ssw0rd'
           psql -h localhost -U server_admin -f ./shopestore-schema.sql
       - name: Build the Docker image
