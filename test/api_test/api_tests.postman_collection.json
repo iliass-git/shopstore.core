@@ -47,6 +47,76 @@
 			"response": []
 		},
 		{
+			"name": "http://localhost:8080/Product/1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.expect(pm.response.code).to.be.oneOf([200,201]);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Product/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Product",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/Product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.expect(pm.response.code).to.be.oneOf([200,201]);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 1,\n  \"name\": \"NameHasbeenChanged\",\n  \"description\": \"descriptionHasbeenChanged\",\n  \"price\": 1,\n  \"availableQuantity\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/Product",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "http://localhost:8080/products",
 			"event": [
 				{
@@ -81,37 +151,6 @@
 					"port": "8080",
 					"path": [
 						"products"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:8080/Product/1",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.expect(pm.response.code).to.be.oneOf([200,201]);"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/Product/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"Product",
-						"1"
 					]
 				}
 			},
