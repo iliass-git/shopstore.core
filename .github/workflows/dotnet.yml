@@ -63,9 +63,9 @@ jobs:
           node-version: 16
       - name: Pull Postgres
         run: |
-          docker run -itd -e POSTGRES_USER=server_admin -e POSTGRES_PASSWORD=P@ssw0rd -p 5432:5432  --name postgresql postgres
+          docker run -itd -e POSTGRES_USER=${{env.POSTGRES_USER}} -e POSTGRES_PASSWORD=${{env.POSTGRES_PASSWORD}} -p 5432:5432  --name postgresql postgres
           sudo apt-get install -y postgresql-client
-          export PGPASSWORD='P@ssw0rd'
+          export PGPASSWORD=${{env.POSTGRES_PASSWORD}}
           psql -h localhost -U server_admin -f ./shopestore-schema.sql
       - name: Build the Docker image
         run: |
