@@ -12,9 +12,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"status code is 200\", function(){",
-							"pm.response.to.have.status(200);",
-							"});"
+							"pm.expect(pm.response.code).to.be.oneOf([200,201]);"
 						],
 						"type": "text/javascript"
 					}

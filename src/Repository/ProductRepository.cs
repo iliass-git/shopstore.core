@@ -1,6 +1,8 @@
 using ShopStore.DbContext;
 using ShopStore.Interfaces;
 using ShopStore.Models;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace ShopStore.Repository;
 public class ProductRepository: IProductRepository{
@@ -13,73 +15,38 @@ public class ProductRepository: IProductRepository{
         _logger = logger;
     }
 
-    public void AddProduct(Product product)
+    public async Task<Product> AddProduct(Product product)
     {
-        try 
-        {
-            _dataContext.Products.Add(product);
-            _dataContext.SaveChanges();
-            _logger.LogInformation($"The product with name {product.Name} has been saved successfuly.");
-        } 
-        catch (Exception ex)
-        {
-            _logger.LogError($"Something went wong. Exception message: {ex}");
-        }
-
+            var result = _dataContext.Products.Add(product);
+             SaveAsync();
+            return result.Entity;
     }
 
-    public void DeleteProduct(Product product)
+    public async void DeleteProduct(Product product)
     {
-        try
-        {
-            _dataContext.Products.Remove(product);
-            _dataContext.SaveChanges();
-        }
-        catch(Exception ex)
-        {
-             _logger.LogError($"Something went wong. Exception message: {ex}");
-        }
-
+        _dataContext.Products.Remove(product);
+        SaveAsync();
     }
 
-    public IList<Product> GetAllProductes()
+    public async Task<IList<Product>> GetAllProducts()
     {
-        try
-        {
-            var productes = _dataContext.Products.ToList();
-            return productes;
-        }
-        catch(Exception ex)
-        {
-             _logger.LogError($"Something went wong. Exception message: {ex}");
-        }
-
-        return null;
+        return await _dataContext.Products.ToListAsync();
     }
 
-    public Product GetProductById(int productId)
+    public async Task<Product> GetProductById(int productId)
     {
-       try
-       {
-            var product = _dataContext.Products.Where(p => p.Id == productId).SingleOrDefault();
-            return product;
-       }
-       catch(Exception ex)
-       {
-            _logger.LogError($"Something went wong. Exception message: {ex}");
-       }
-       return null;
+        return await _dataContext.Products.FirstOrDefaultAsync(p => p.Id == productId);
     }
 
-    public void UpdateProduct(Product product)
+    public async Task<Product> UpdateProduct(Product product)
     {
-       try{
-             _dataContext.Products.Update(product);
-             _dataContext.SaveChanges();
-       }
-       catch(Exception ex)
-       {
-            _logger.LogError($"Something went wong. Exception message: {ex}");
-       }
+        var result = _dataContext.Products.Update(product);
+        SaveAsync();
+        return result.Entity;        
+    }
+
+    private void SaveAsync()
+    {
+        _dataContext.SaveChangesAsync();
     }
 }
