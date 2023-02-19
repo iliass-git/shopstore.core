@@ -18,48 +18,112 @@ public class ProductController : ControllerBase
 
 
     [HttpPost ,Route("/Product")]
-    public IActionResult AddProduct(Product product)
+    public async Task<ActionResult<Product>> AddProduct(Product product)
     {
-        _productRepository.AddProduct(product);
-        return Ok();   
+        if(product == null)
+            return BadRequest();
+        
+        try
+        {
+            var createdProduct = await _productRepository.AddProduct(product);
+            return CreatedAtAction(nameof(GetProductById),
+            new { id = createdProduct.Id }, createdProduct);
+        }
+        catch(Exception ex)
+        {
+            _logger.LogError($"Adding new product has been failed. Exception message: {ex.Message}");
+            return StatusCode(StatusCodes.Status500InternalServerError,
+            "Error creating new product record. Please check the logs for more details");
+        }
     }
 
     [HttpGet ,Route("/Products")]
-    public IActionResult GetProductes()
+    public async Task<ActionResult> GetProducts()
     {
-        var productes = _productRepository.GetAllProductes();
-        return Ok(productes);   
-    }
-
-    [HttpGet ,Route("/Product/{id}")]
-    public IActionResult GetProductById(int id)
-    {
-        if(id > 0){
-            var product = _productRepository.GetProductById(id);
-            return Ok(product);  
+        try
+        {
+            var productes = await _productRepository.GetAllProducts();
+            if (productes != null)
+            {
+                _logger.LogInformation("Getting all products");
+                return Ok(productes); 
+            }
         }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Getting all productes has been failed."+
+                $"Exception message: {ex.Message}");
+            return StatusCode(StatusCodes.Status500InternalServerError, 
+                "Error retrieving productes from the database."+
+                "Please check the logs for more details");
+        }  
         return BadRequest();
     }
 
-    [HttpPut ,Route("/Product")]
-    public IActionResult UpdateProduct(Product product)
+    [HttpGet ,Route("/Product/{id}")]
+    public async Task<ActionResult> GetProductById(int id)
     {
-        var result = _productRepository.GetProductById(product.Id);
-        if (result == null){
-            return BadRequest($"The Product with the id {product.Id} doesn't exist an update could not be occurred.");
+        if (id <= 0)
+            return BadRequest();
+        try
+        {
+            var product = await _productRepository.GetProductById(id);
+            _logger.LogInformation($"Getting product with the id: {id}");
+            return Ok(product); 
         }
-        _productRepository.UpdateProduct(product);
-        return Ok();  
+        catch (Exception ex)
+        {
+            _logger.LogError($"Getting product with id {id} has been failed."+
+                $"Exception message: {ex.Message}");
+            return StatusCode(StatusCodes.Status500InternalServerError, 
+                $"Error retrieving the product with the id {id} from the database."+
+                "Please check the logs for more details");
+        }
+    }
+
+    [HttpPut ,Route("/Product")]
+    public async Task<ActionResult> UpdateProduct(Product product)
+    {
+        if(product == null)
+            return BadRequest();
+        try
+        {
+            var result = await _productRepository.UpdateProduct(product);
+            if(result == null)
+            {
+                return BadRequest($"The Product with the id {product.Id} could not be updated");
+            }
+            return Ok(result);  
+        }
+        catch(Exception ex)
+        {
+            _logger.LogError($"Updating the product with id {product.Id} has been failed."+
+                $"Exception message: {ex.Message}");
+            return StatusCode(StatusCodes.Status500InternalServerError, 
+                $"Error retrieving the product with the id {product.Id} from the database."+
+                "Please check the logs for more details");
+        }
     }
 
     [HttpDelete ,Route("/Product/{id}")]
-    public IActionResult DeleteProduct(int id)
+    public async Task<ActionResult> DeleteProduct(int id)
     {
-        var product = _productRepository.GetProductById(id);
-        if(product == null){
-            return BadRequest($"Prodcut with id {id} doesn't exist");
+        if(id<=0)
+            return BadRequest();
+        try
+        {   
+            var product = await _productRepository.GetProductById(id);
+            _productRepository.DeleteProduct(product);
+            return Ok();  
         }
-        _productRepository.DeleteProduct(product);
-        return Ok();  
+        catch(Exception ex)
+        {
+            _logger.LogError($"Deleting the product with id {id} has been failed."+
+                $"Exception message: {ex.Message}");
+            return StatusCode(StatusCodes.Status500InternalServerError, 
+                $"Error deleting the product with the id {id} from the database."+
+                "Please check the logs for more details");
+        }
+
     }
 }
