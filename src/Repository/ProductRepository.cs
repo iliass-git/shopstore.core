@@ -17,9 +17,10 @@ public class ProductRepository: IProductRepository{
 
     public async Task<Product> AddProduct(Product product)
     {
-            var result = _dataContext.Products.Add(product);
-             SaveAsync();
-            return result.Entity;
+            await _dataContext.Products.AddAsync(product);
+            SaveAsync();
+            _dataContext.Entry(product).GetDatabaseValues();
+            return product;
     }
 
     public async void DeleteProduct(Product product)
@@ -40,9 +41,10 @@ public class ProductRepository: IProductRepository{
 
     public async Task<Product> UpdateProduct(Product product)
     {
-        var result = _dataContext.Products.Update(product);
+        _dataContext.Products.Update(product);
         SaveAsync();
-        return result.Entity;        
+        _dataContext.Entry(product).GetDatabaseValues();
+        return product;        
     }
 
     private void SaveAsync()

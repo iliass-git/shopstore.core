@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ShopStore.Interfaces;
 using ShopStore.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ShopStore.Controllers;
 
@@ -33,7 +34,8 @@ public class ProductController : ControllerBase
         {
             _logger.LogError($"Adding new product has been failed. Exception message: {ex.Message}");
             return StatusCode(StatusCodes.Status500InternalServerError,
-            "Error creating new product record. Please check the logs for more details");
+            "Error creating new product record. Please check the logs for more details."+
+            $"Error details: {ex.Message}");
         }
     }
 
@@ -55,7 +57,8 @@ public class ProductController : ControllerBase
                 $"Exception message: {ex.Message}");
             return StatusCode(StatusCodes.Status500InternalServerError, 
                 "Error retrieving productes from the database."+
-                "Please check the logs for more details");
+                "Please check the logs for more details"+
+                $"Error details: {ex.Message}");
         }  
         return BadRequest();
     }
@@ -77,7 +80,8 @@ public class ProductController : ControllerBase
                 $"Exception message: {ex.Message}");
             return StatusCode(StatusCodes.Status500InternalServerError, 
                 $"Error retrieving the product with the id {id} from the database."+
-                "Please check the logs for more details");
+                "Please check the logs for more details"+
+                $"Error details: {ex.Message}");
         }
     }
 
@@ -101,7 +105,8 @@ public class ProductController : ControllerBase
                 $"Exception message: {ex.Message}");
             return StatusCode(StatusCodes.Status500InternalServerError, 
                 $"Error retrieving the product with the id {product.Id} from the database."+
-                "Please check the logs for more details");
+                "Please check the logs for more details"+
+                $"Error details: {ex.Message}");
         }
     }
 
