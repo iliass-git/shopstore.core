@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ShopStore.Interfaces;
 using ShopStore.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ShopStore.Controllers;
 
