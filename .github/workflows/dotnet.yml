@@ -74,7 +74,7 @@ jobs:
       - name: Prepare newman
         run: npm install -g newman
       - name: Run test with newman
-        run: newman run ./test/api_test/api_tests.postman_collection.json 2>&1 | tee apiTest_report
+        run: newman run ./test/api_test/api_tests.postman_collection.json --verbose 2>&1 | tee apiTest_report
       - name: Upload results
         uses: actions/upload-artifact@v3
         with:
