@@ -17,7 +17,7 @@ public class ProductRepository: IProductRepository{
 
     public async Task<Product> AddProduct(Product product)
     {
-            var result = _dataContext.Products.Add(product);
+            var result = await _dataContext.Products.AddAsync(product);
              SaveAsync();
             return result.Entity;
     }
@@ -40,7 +40,7 @@ public class ProductRepository: IProductRepository{
 
     public async Task<Product> UpdateProduct(Product product)
     {
-        var result = _dataContext.Products.Update(product);
+        var result =  _dataContext.Products.Update(product);
         SaveAsync();
         return result.Entity;        
     }
