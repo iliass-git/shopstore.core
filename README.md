@@ -34,5 +34,5 @@ $> docker run -itd -e POSTGRES_USER=server_admin -e POSTGRES_PASSWORD=P@ssw0rd -
 $> sudo apt-get install -y postgresql-client
 $> psql -h localhost -U server_admin -f ./shopestore-schema.sql
 ```
-* Access the swagger api definition throw http://localhost:8080/swagger/index.html
+* Access the swagger api definition through http://localhost:8080/swagger/index.html
 
