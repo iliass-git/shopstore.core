@@ -1,15 +1,15 @@
 namespace shopStoreUnitTest;
-using ShopStore.Interfaces;
 using ShopStore.DbContext;
 using ShopStore.Models;
+using ShopStore.Services;
 using Moq;
-public class ProductRepositoryTest
+public class ProductServiceTest
 {
-    private readonly Mock<IProductRepository> _mockProductRepository;
+    private readonly Mock<IProductService> _mockProductService;
     private readonly Mock<DataContext> _mockDataContext;
-    public ProductRepositoryTest()
+    public ProductServiceTest()
     {
-        _mockProductRepository = new Mock<IProductRepository>();
+        _mockProductService = new Mock<IProductService>();
         _mockDataContext = new Mock<DataContext>();
     }
     // Test for AddProduct
@@ -24,8 +24,8 @@ public class ProductRepositoryTest
             Price = 100,
             AvailableQuantity = 10
         };
-        _mockProductRepository.Setup(x => x.AddProduct(product)).ReturnsAsync(product);
-        var result = await _mockProductRepository.Object.AddProduct(product);
+        _mockProductService.Setup(x => x.AddProduct(product)).ReturnsAsync(product);
+        var result = await _mockProductService.Object.AddProduct(product);
         Assert.Equal(product, result);
     }
     // Test for DeleteProduct
@@ -40,9 +40,9 @@ public class ProductRepositoryTest
             Price = 100,
             AvailableQuantity = 10
         };
-        _mockProductRepository.Setup(x => x.DeleteProduct(product));
-        _mockProductRepository.Object.DeleteProduct(product);
-        _mockProductRepository.Verify(x => x.DeleteProduct(product), Times.Once);
+        _mockProductService.Setup(x => x.DeleteProduct(product));
+        _mockProductService.Object.DeleteProduct(product);
+        _mockProductService.Verify(x => x.DeleteProduct(product), Times.Once);
     }
     // Test for GetAllProducts
     [Fact]
@@ -67,8 +67,8 @@ public class ProductRepositoryTest
                 AvailableQuantity = 20
             }
         };
-        _mockProductRepository.Setup(x => x.GetAllProducts()).ReturnsAsync(products);
-        var result = await _mockProductRepository.Object.GetAllProducts();
+        _mockProductService.Setup(x => x.GetAllProducts()).ReturnsAsync(products);
+        var result = await _mockProductService.Object.GetAllProducts();
         Assert.Equal(products, result);
     }
     // Test update product
@@ -83,8 +83,8 @@ public class ProductRepositoryTest
             Price = 100,
             AvailableQuantity = 10
         };
-        _mockProductRepository.Setup(x => x.UpdateProduct(product)).ReturnsAsync(product);
-        var result = await _mockProductRepository.Object.UpdateProduct(product);
+        _mockProductService.Setup(x => x.UpdateProduct(product)).ReturnsAsync(product);
+        var result = await _mockProductService.Object.UpdateProduct(product);
         Assert.Equal(product, result);
     }
     // Test get product by id
@@ -99,8 +99,8 @@ public class ProductRepositoryTest
             Price = 100,
             AvailableQuantity = 10
         };
-        _mockProductRepository.Setup(x => x.GetProductById(1)).ReturnsAsync(product);
-        var result = await _mockProductRepository.Object.GetProductById(1);
+        _mockProductService.Setup(x => x.GetProductById(1)).ReturnsAsync(product);
+        var result = await _mockProductService.Object.GetProductById(1);
         Assert.Equal(product, result);
     }
 }
