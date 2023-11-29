@@ -1,4 +1,4 @@
-namespace ShopStore.Models;
+namespace ShopStore.Enums;
 
 public enum SellingStatus {
     Reserved,

@@ -1,15 +1,21 @@
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
-using ShopStore.Interfaces;
 using ShopStore.Repository;
-using  ShopStore.DbContext;
+using ShopStore.DbContext;
+using ShopStore.Mappers.Interfaces;
+using ShopStore.Mappers;
+using ShopStore.Mapper;
+using ShopStore.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<DataContext>();
-builder.Services.AddTransient<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ICustomerMapper, CustomerMapper>();
+builder.Services.AddScoped<IProductMapper, ProductMapper>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using ShopStore.Interfaces;
+using ShopStore.Services;
 using ShopStore.Models;
 using Microsoft.AspNetCore.Authorization;
 
@@ -10,11 +10,11 @@ namespace ShopStore.Controllers;
 public class ProductController : ControllerBase
 {
     private readonly ILogger<ProductController> _logger;
-    private readonly IProductRepository _productRepository;
-    public ProductController(IProductRepository productRepository, ILogger<ProductController> logger )
+    private readonly IProductService _productService;
+    public ProductController(IProductService productService, ILogger<ProductController> logger )
     {
-     _logger = logger;   
-     _productRepository = productRepository;
+        _logger = logger;   
+        _productService = productService;
     }
 
 
@@ -26,7 +26,7 @@ public class ProductController : ControllerBase
         
         try
         {
-            var createdProduct = await _productRepository.AddProduct(product);
+            var createdProduct = await _productService.AddProduct(product);
             return CreatedAtAction(nameof(GetProductById),
             new { id = createdProduct.Id }, createdProduct);
         }
@@ -44,7 +44,7 @@ public class ProductController : ControllerBase
     {
         try
         {
-            var productes = await _productRepository.GetAllProducts();
+            var productes = await _productService.GetAllProducts();
             if (productes != null)
             {
                 _logger.LogInformation("Getting all products");
@@ -70,7 +70,7 @@ public class ProductController : ControllerBase
             return BadRequest();
         try
         {
-            var product = await _productRepository.GetProductById(id);
+            var product = await _productService.GetProductById(id);
             _logger.LogInformation($"Getting product with the id: {id}");
             return Ok(product); 
         }
@@ -92,7 +92,7 @@ public class ProductController : ControllerBase
             return BadRequest();
         try
         {
-            var result = await _productRepository.UpdateProduct(product);
+            var result = await _productService.UpdateProduct(product);
             if(result == null)
             {
                 return BadRequest($"The Product with the id {product.Id} could not be updated");
@@ -117,8 +117,8 @@ public class ProductController : ControllerBase
             return BadRequest();
         try
         {   
-            var product = await _productRepository.GetProductById(id);
-            _productRepository.DeleteProduct(product);
+            var product = await _productService.GetProductById(id);
+            _productService.DeleteProduct(product);
             return Ok();  
         }
         catch(Exception ex)
