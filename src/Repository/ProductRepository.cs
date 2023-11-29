@@ -1,21 +1,18 @@
 using ShopStore.DbContext;
-using ShopStore.Interfaces;
-using ShopStore.Models;
 using Microsoft.EntityFrameworkCore;
+using ShopStore.DbContext.Entities;
 
 
 namespace ShopStore.Repository;
 public class ProductRepository: IProductRepository{
 
     private readonly DataContext _dataContext;
-     private readonly ILogger<ProductRepository> _logger;
-    public ProductRepository(DataContext dataContext, ILogger<ProductRepository> logger)
+    public ProductRepository(DataContext dataContext)
     {
         _dataContext = dataContext;
-        _logger = logger;
     }
 
-    public async Task<Product> AddProduct(Product product)
+    public async Task<ProductEntity> AddProduct(ProductEntity product)
     {
             await _dataContext.Products.AddAsync(product);
             SaveAsync();
@@ -23,23 +20,23 @@ public class ProductRepository: IProductRepository{
             return product;
     }
 
-    public async void DeleteProduct(Product product)
+    public async void DeleteProduct(ProductEntity product)
     {
         _dataContext.Products.Remove(product);
         SaveAsync();
     }
 
-    public async Task<IList<Product>> GetAllProducts()
+    public async Task<IList<ProductEntity>> GetAllProducts()
     {
         return await _dataContext.Products.ToListAsync();
     }
 
-    public async Task<Product> GetProductById(int productId)
+    public async Task<ProductEntity> GetProductById(int productId)
     {
         return await _dataContext.Products.FirstOrDefaultAsync(p => p.Id == productId);
     }
 
-    public async Task<Product> UpdateProduct(Product product)
+    public async Task<ProductEntity> UpdateProduct(ProductEntity product)
     {
         _dataContext.Products.Update(product);
         SaveAsync();

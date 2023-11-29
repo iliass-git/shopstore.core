@@ -1,7 +1,7 @@
 namespace ShopStore.DbContext;
-
 using Microsoft.EntityFrameworkCore;
-using ShopStore.Models;
+using ShopStore.DbContext.Entities;
+
 
 public class DataContext : DbContext
 {
@@ -23,8 +23,8 @@ public class DataContext : DbContext
 
     }
 
-    public DbSet<Product> Products { get; set; }
-    public DbSet<Customer> Customers { get; set; }
-    public DbSet<UserInfo> UserInfos { get; set; }
-    public DbSet<CustomerRequest> CustomerRequests { get; set; }
+    public DbSet<ProductEntity> Products { get; set; }
+    public DbSet<CustomerEntity> Customers { get; set; }
+    public DbSet<UserInfoEntity> UserInfos { get; set; }
+    public DbSet<CustomerRequestEntity> CustomerRequests { get; set; }
 }
